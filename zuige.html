@@ -21,6 +21,7 @@
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             overflow: hidden;
             position: relative;
+            transition: background 1s ease;
         }
         
         /* 添加一些装饰性元素增强唯美感 */
@@ -109,6 +110,71 @@
             background: #aaa;
         }
         
+        .baby-button {
+            margin-top: 30px;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .baby-button:hover {
+            background-color: #ff1493;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+        }
+        
+        .baby-button:active {
+            transform: translateY(1px);
+        }
+        
+        /* 第二个界面样式 */
+        .second-page {
+            display: none;
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .second-page h1 {
+            font-size: 4rem;
+            color: #4b0082;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .back-button {
+            margin-top: 30px;
+            padding: 10px 25px;
+            font-size: 1rem;
+            background-color: #9370db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
+        }
+        
+        .back-button:hover {
+            background-color: #8a2be2;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(147, 112, 219, 0.4);
+        }
+        
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -126,9 +192,13 @@
                 font-size: 3rem;
             }
             
-            .main-content {
+            .main-content, .second-page {
                 padding: 20px;
                 margin: 0 20px;
+            }
+            
+            .second-page h1 {
+                font-size: 3rem;
             }
         }
         
@@ -140,6 +210,15 @@
             .signature {
                 font-size: 1rem;
             }
+            
+            .baby-button {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+            
+            .second-page h1 {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
@@ -149,10 +228,40 @@
     <div class="floating-element"></div>
     <div class="floating-element"></div>
     
-    <!-- 主要内容 -->
-    <div class="main-content">
+    <!-- 第一个界面 -->
+    <div class="main-content" id="firstPage">
         <h1>Hello World</h1>
         <div class="signature">—— zuige</div>
+        <button class="baby-button" id="babyButton">宝宝</button>
     </div>
+    
+    <!-- 第二个界面 -->
+    <div class="second-page" id="secondPage">
+        <h1>小赖宝宝</h1>
+        <button class="back-button" id="backButton">返回</button>
+    </div>
+
+    <script>
+        // 获取元素
+        const babyButton = document.getElementById('babyButton');
+        const backButton = document.getElementById('backButton');
+        const firstPage = document.getElementById('firstPage');
+        const secondPage = document.getElementById('secondPage');
+        const body = document.body;
+        
+        // 点击宝宝按钮切换到第二个界面
+        babyButton.addEventListener('click', function() {
+            firstPage.style.display = 'none';
+            secondPage.style.display = 'block';
+            body.style.background = 'linear-gradient(135deg, #d8bfd8 0%, #9370db 100%)';
+        });
+        
+        // 点击返回按钮切换回第一个界面
+        backButton.addEventListener('click', function() {
+            secondPage.style.display = 'none';
+            firstPage.style.display = 'block';
+            body.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+        });
+    </script>
 </body>
 </html>
