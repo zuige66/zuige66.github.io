@@ -136,6 +136,30 @@
             box-shadow: 0 6px 20px rgba(255, 155, 179, 0.4);
         }
         
+        /* 返回按钮样式 - 右下角固定定位 */
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #9c27b0;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            z-index: 20;
+            display: none; /* 默认隐藏 */
+        }
+        
+        .back-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -147,11 +171,14 @@
             }
         }
         
-        /* 第二页样式 */
-        .second-page {
-            display: none;
+        /* 页面容器样式 */
+        .first-page, .second-page {
             text-align: center;
             z-index: 10;
+        }
+        
+        .second-page {
+            display: none;
         }
         
         /* 响应式设计 */
@@ -163,6 +190,13 @@
             .main-content {
                 padding: 20px;
                 margin: 0 20px;
+            }
+            
+            .back-btn {
+                bottom: 20px;
+                right: 20px;
+                padding: 8px 16px;
+                font-size: 0.9rem;
             }
         }
         
@@ -203,11 +237,14 @@
         <div class="main-content">
             <h1>小赖宝宝</h1>
         </div>
+        <!-- 返回按钮 -->
+        <button class="back-btn">返回</button>
     </div>
 
     <script>
         // 获取元素
         const babyBtn = document.querySelector('.baby-btn');
+        const backBtn = document.querySelector('.back-btn');
         const firstPage = document.querySelector('.first-page');
         const secondPage = document.querySelector('.second-page');
         const body = document.body;
@@ -215,36 +252,45 @@
         const headings = document.querySelectorAll('h1');
         const signature = document.querySelector('.signature');
         
-        // 点击按钮切换页面
+        // 点击宝宝按钮进入第二页
         babyBtn.addEventListener('click', () => {
-            // 隐藏第一页，显示第二页
             firstPage.style.display = 'none';
             secondPage.style.display = 'block';
+            backBtn.style.display = 'block'; // 显示返回按钮
             
-            // 改变背景为紫色调渐变
+            // 紫色主题样式
             body.style.background = 'linear-gradient(135deg, #f3e5f5 0%, #9c27b0 100%)';
-            
-            // 改变浮动元素颜色
             floatingElements.forEach(el => {
                 el.style.background = 'rgba(255, 255, 255, 0.2)';
             });
-            
-            // 改变文字样式
             headings.forEach(h1 => {
                 h1.style.color = '#fff';
                 h1.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.2)';
             });
-            
-            // 改变主内容区域样式
             document.querySelector('.main-content').style.boxShadow = '0 8px 32px rgba(76, 17, 85, 0.2)';
-            
-            // 如果有签名线，改变其样式
             if (signature) {
                 signature.style.color = '#f0e6f5';
-                const signatureLine = signature.querySelector('::before');
-                if (signatureLine) {
-                    signatureLine.style.background = '#d1c4e9';
-                }
+            }
+        });
+        
+        // 点击返回按钮回到第一页
+        backBtn.addEventListener('click', () => {
+            secondPage.style.display = 'none';
+            firstPage.style.display = 'block';
+            backBtn.style.display = 'none'; // 隐藏返回按钮
+            
+            // 恢复原始主题样式
+            body.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
+            floatingElements.forEach(el => {
+                el.style.background = 'rgba(255, 255, 255, 0.3)';
+            });
+            headings.forEach(h1 => {
+                h1.style.color = '#333';
+                h1.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.1)';
+            });
+            document.querySelector('.main-content').style.boxShadow = '0 8px 32px rgba(31, 38, 135, 0.1)';
+            if (signature) {
+                signature.style.color = '#666';
             }
         });
     </script>
