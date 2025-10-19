@@ -263,31 +263,31 @@
         const headings = document.querySelectorAll('h1');
         const signature = document.querySelector('.signature');
         
-        // 点击宝宝按钮进入第二页（Gris风格紫色调）
+        // 点击宝宝按钮进入第二页（更鲜明的紫色调）
         babyBtn.addEventListener('click', () => {
             firstPage.style.display = 'none';
             secondPage.style.display = 'block';
             backBtn.style.display = 'block';
             
-            // Gris风格的灰紫色调背景
-            body.style.background = 'linear-gradient(135deg, #2d2a3c 0%, #4a4463 100%)';
+            // 更鲜明的紫色渐变背景
+            body.style.background = 'linear-gradient(135deg, #8A2BE2 0%, #4B0082 100%)';
             
-            // 调整浮动元素颜色，模拟Gris的水彩分层
-            floatingElements[0].style.background = '#7b6d8d';
-            floatingElements[1].style.background = '#5e548e';
-            floatingElements[2].style.background = '#9f86c0';
+            // 调整浮动元素颜色，增强紫色鲜艳度
+            floatingElements[0].style.background = '#BC8F8F';
+            floatingElements[1].style.background = '#9932CC';
+            floatingElements[2].style.background = '#BA55D3';
             
-            // 文字与容器样式调整
+            // 文字与容器样式调整，让文字在鲜明紫色背景下更清晰
             headings.forEach(h1 => {
-                h1.style.color = '#f0e6f5';
-                h1.style.textShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+                h1.style.color = '#ffffff';
+                h1.style.textShadow = '0 2px 10px rgba(0, 0, 0, 0.3)';
             });
             
-            document.querySelector('.main-content').style.background = 'rgba(255, 255, 255, 0.08)';
-            document.querySelector('.main-content').style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.15)';
+            document.querySelector('.main-content').style.background = 'rgba(255, 255, 255, 0.1)';
+            document.querySelector('.main-content').style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.2)';
             
             if (signature) {
-                signature.style.color = '#d8c3dc';
+                signature.style.color = '#f0e6f5';
                 signature.style.borderColor = '#917cb5';
             }
         });
