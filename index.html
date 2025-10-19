@@ -24,11 +24,11 @@
             transition: background 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
-        /* 装饰性浮动元素 - 模拟Gris的水彩晕染效果 */
+        /* 装饰性浮动元素 - 模拟水彩晕染效果 */
         .floating-element {
             position: absolute;
             border-radius: 50%;
-            filter: blur(40px); /* 模糊效果模拟水彩扩散 */
+            filter: blur(40px);
             opacity: 0.4;
             animation: float 20s infinite ease-in-out;
             transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -60,6 +60,26 @@
             left: 20%;
             background: #d8bfd8;
             animation-duration: 22s;
+        }
+        
+        /* 星星装饰 */
+        .star {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: twinkle 3s infinite alternate;
+            transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes twinkle {
+            from {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1.2);
+            }
         }
         
         @keyframes float {
@@ -146,7 +166,7 @@
             box-shadow: 0 6px 25px rgba(248, 177, 204, 0.35);
         }
         
-        /* 返回按钮样式 - Gris风格 */
+        /* 返回按钮样式 */
         .back-btn {
             position: fixed;
             bottom: 30px;
@@ -228,10 +248,17 @@
     </style>
 </head>
 <body>
-    <!-- 装饰性浮动元素 - 模拟Gris的水彩背景 -->
+    <!-- 装饰性浮动元素 -->
     <div class="floating-element"></div>
     <div class="floating-element"></div>
     <div class="floating-element"></div>
+    
+    <!-- 星星装饰 -->
+    <div class="star" style="width: 10px; height: 10px; top: 20%; left: 30%;"></div>
+    <div class="star" style="width: 8px; height: 8px; top: 35%; left: 60%; animation-delay: 0.5s;"></div>
+    <div class="star" style="width: 12px; height: 12px; top: 50%; left: 40%; animation-delay: 1s;"></div>
+    <div class="star" style="width: 9px; height: 9px; top: 65%; left: 70%; animation-delay: 1.5s;"></div>
+    <div class="star" style="width: 11px; height: 11px; top: 40%; left: 20%; animation-delay: 2s;"></div>
     
     <!-- 第一页内容 -->
     <div class="first-page">
@@ -260,35 +287,41 @@
         const secondPage = document.querySelector('.second-page');
         const body = document.body;
         const floatingElements = document.querySelectorAll('.floating-element');
+        const stars = document.querySelectorAll('.star');
         const headings = document.querySelectorAll('h1');
         const signature = document.querySelector('.signature');
         
-        // 点击宝宝按钮进入第二页（更鲜明的紫色调）
+        // 点击宝宝按钮进入第二页（唯美紫色调）
         babyBtn.addEventListener('click', () => {
             firstPage.style.display = 'none';
             secondPage.style.display = 'block';
             backBtn.style.display = 'block';
             
-            // 更鲜明的紫色渐变背景
-            body.style.background = 'linear-gradient(135deg, #8A2BE2 0%, #4B0082 100%)';
+            // 唯美紫色渐变背景
+            body.style.background = 'linear-gradient(135deg, #e6e6fa 0%, #b0c4de 100%)';
             
-            // 调整浮动元素颜色，增强紫色鲜艳度
-            floatingElements[0].style.background = '#BC8F8F';
-            floatingElements[1].style.background = '#9932CC';
-            floatingElements[2].style.background = '#BA55D3';
+            // 调整浮动元素颜色为柔和紫色系
+            floatingElements[0].style.background = '#d8bfd8';
+            floatingElements[1].style.background = '#b0c4de';
+            floatingElements[2].style.background = '#e6e6fa';
             
-            // 文字与容器样式调整，让文字在鲜明紫色背景下更清晰
+            // 调整星星颜色为淡紫色系
+            stars.forEach(star => {
+                star.style.background = 'rgba(230, 230, 250, 0.8)';
+            });
+            
+            // 文字与容器样式调整
             headings.forEach(h1 => {
-                h1.style.color = '#ffffff';
-                h1.style.textShadow = '0 2px 10px rgba(0, 0, 0, 0.3)';
+                h1.style.color = '#483d8b';
+                h1.style.textShadow = '0 2px 10px rgba(72, 61, 139, 0.2)';
             });
             
             document.querySelector('.main-content').style.background = 'rgba(255, 255, 255, 0.1)';
-            document.querySelector('.main-content').style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.2)';
+            document.querySelector('.main-content').style.boxShadow = '0 10px 40px rgba(72, 61, 139, 0.1)';
             
             if (signature) {
-                signature.style.color = '#f0e6f5';
-                signature.style.borderColor = '#917cb5';
+                signature.style.color = '#6a5acd';
+                signature.style.borderColor = '#9370db';
             }
         });
         
@@ -304,6 +337,10 @@
             floatingElements[0].style.background = '#c3cfe2';
             floatingElements[1].style.background = '#b2abd2';
             floatingElements[2].style.background = '#d8bfd8';
+            
+            stars.forEach(star => {
+                star.style.background = 'rgba(255, 255, 255, 0.8)';
+            });
             
             headings.forEach(h1 => {
                 h1.style.color = '#3a3a52';
