@@ -12,7 +12,7 @@
         }
         
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -21,86 +21,96 @@
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             overflow: hidden;
             position: relative;
-            transition: background 1s ease;
+            transition: background 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
-        /* 装饰性浮动元素 */
+        /* 装饰性浮动元素 - 模拟Gris的水彩晕染效果 */
         .floating-element {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            animation: float 15s infinite linear;
-            transition: background 1s ease;
+            filter: blur(40px); /* 模糊效果模拟水彩扩散 */
+            opacity: 0.4;
+            animation: float 20s infinite ease-in-out;
+            transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         .floating-element:nth-child(1) {
-            width: 80px;
-            height: 80px;
+            width: 200px;
+            height: 200px;
             top: 10%;
             left: 15%;
-            animation-duration: 25s;
+            background: #c3cfe2;
+            animation-duration: 30s;
         }
         
         .floating-element:nth-child(2) {
-            width: 120px;
-            height: 120px;
+            width: 280px;
+            height: 280px;
             top: 70%;
             right: 10%;
-            animation-duration: 20s;
+            background: #b2abd2;
+            animation-duration: 25s;
             animation-direction: reverse;
         }
         
         .floating-element:nth-child(3) {
-            width: 60px;
-            height: 60px;
+            width: 150px;
+            height: 150px;
             bottom: 20%;
             left: 20%;
-            animation-duration: 18s;
+            background: #d8bfd8;
+            animation-duration: 22s;
         }
         
         @keyframes float {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, -15px) rotate(5deg);
             }
             50% {
-                transform: translateY(-20px) rotate(180deg);
+                transform: translate(10px, -30px) rotate(0deg);
+            }
+            75% {
+                transform: translate(-10px, -10px) rotate(-5deg);
             }
             100% {
-                transform: translateY(0) rotate(360deg);
+                transform: translate(0, 0) rotate(0deg);
             }
         }
         
         .main-content {
             text-align: center;
             z-index: 10;
-            padding: 30px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+            padding: 40px 60px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 40px rgba(31, 38, 135, 0.08);
             animation: fadeIn 2s ease-out;
-            transition: all 1s ease;
+            transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         h1 {
             font-size: 4.5rem;
-            color: #333;
+            color: #3a3a52;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
             font-weight: 300;
-            letter-spacing: 2px;
-            transition: color 1s ease, text-shadow 1s ease;
+            letter-spacing: 3px;
+            transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         .signature {
             font-size: 1.2rem;
-            color: #666;
+            color: #666a88;
             font-style: italic;
             margin-top: 20px;
             letter-spacing: 1px;
             position: relative;
             padding-top: 15px;
-            transition: color 1s ease;
+            transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
         .signature::before {
@@ -111,63 +121,64 @@
             transform: translateX(-50%);
             width: 50px;
             height: 1px;
-            background: #aaa;
-            transition: background 1s ease;
+            background: #a0a7c4;
+            transition: all 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         
-        /* 宝宝按钮样式 */
+        /* 宝宝按钮样式 - 柔和粉色 */
         .baby-btn {
             margin-top: 30px;
             padding: 12px 30px;
-            background: #ff9bb3;
-            color: white;
+            background: #f8b1cc;
+            color: #5a4b5c;
             border: none;
             border-radius: 30px;
             font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 155, 179, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(248, 177, 204, 0.25);
+            transition: all 0.4s ease;
             z-index: 10;
         }
         
         .baby-btn:hover {
-            background: #ff7aa2;
+            background: #f69dc2;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 155, 179, 0.4);
+            box-shadow: 0 6px 25px rgba(248, 177, 204, 0.35);
         }
         
-        /* 返回按钮样式 - 右下角固定定位 */
+        /* 返回按钮样式 - Gris风格 */
         .back-btn {
             position: fixed;
             bottom: 30px;
             right: 30px;
             padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.8);
-            color: #9c27b0;
-            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: #5a4b5c;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 20px;
             font-size: 1rem;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
             z-index: 20;
             display: none; /* 默认隐藏 */
         }
         
         .back-btn:hover {
-            background: white;
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
         }
         
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(20px) scale(0.98);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
         
@@ -188,7 +199,7 @@
             }
             
             .main-content {
-                padding: 20px;
+                padding: 30px;
                 margin: 0 20px;
             }
             
@@ -217,7 +228,7 @@
     </style>
 </head>
 <body>
-    <!-- 装饰性浮动元素 -->
+    <!-- 装饰性浮动元素 - 模拟Gris的水彩背景 -->
     <div class="floating-element"></div>
     <div class="floating-element"></div>
     <div class="floating-element"></div>
@@ -252,24 +263,32 @@
         const headings = document.querySelectorAll('h1');
         const signature = document.querySelector('.signature');
         
-        // 点击宝宝按钮进入第二页
+        // 点击宝宝按钮进入第二页（Gris风格紫色调）
         babyBtn.addEventListener('click', () => {
             firstPage.style.display = 'none';
             secondPage.style.display = 'block';
-            backBtn.style.display = 'block'; // 显示返回按钮
+            backBtn.style.display = 'block';
             
-            // 紫色主题样式
-            body.style.background = 'linear-gradient(135deg, #f3e5f5 0%, #9c27b0 100%)';
-            floatingElements.forEach(el => {
-                el.style.background = 'rgba(255, 255, 255, 0.2)';
-            });
+            // Gris风格的灰紫色调背景
+            body.style.background = 'linear-gradient(135deg, #2d2a3c 0%, #4a4463 100%)';
+            
+            // 调整浮动元素颜色，模拟Gris的水彩分层
+            floatingElements[0].style.background = '#7b6d8d';
+            floatingElements[1].style.background = '#5e548e';
+            floatingElements[2].style.background = '#9f86c0';
+            
+            // 文字与容器样式调整
             headings.forEach(h1 => {
-                h1.style.color = '#fff';
-                h1.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.2)';
+                h1.style.color = '#f0e6f5';
+                h1.style.textShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
             });
-            document.querySelector('.main-content').style.boxShadow = '0 8px 32px rgba(76, 17, 85, 0.2)';
+            
+            document.querySelector('.main-content').style.background = 'rgba(255, 255, 255, 0.08)';
+            document.querySelector('.main-content').style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.15)';
+            
             if (signature) {
-                signature.style.color = '#f0e6f5';
+                signature.style.color = '#d8c3dc';
+                signature.style.borderColor = '#917cb5';
             }
         });
         
@@ -277,20 +296,25 @@
         backBtn.addEventListener('click', () => {
             secondPage.style.display = 'none';
             firstPage.style.display = 'block';
-            backBtn.style.display = 'none'; // 隐藏返回按钮
+            backBtn.style.display = 'none';
             
-            // 恢复原始主题样式
+            // 恢复原始样式
             body.style.background = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
-            floatingElements.forEach(el => {
-                el.style.background = 'rgba(255, 255, 255, 0.3)';
-            });
+            
+            floatingElements[0].style.background = '#c3cfe2';
+            floatingElements[1].style.background = '#b2abd2';
+            floatingElements[2].style.background = '#d8bfd8';
+            
             headings.forEach(h1 => {
-                h1.style.color = '#333';
-                h1.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.1)';
+                h1.style.color = '#3a3a52';
+                h1.style.textShadow = '1px 1px 3px rgba(0, 0, 0, 0.05)';
             });
-            document.querySelector('.main-content').style.boxShadow = '0 8px 32px rgba(31, 38, 135, 0.1)';
+            
+            document.querySelector('.main-content').style.background = 'rgba(255, 255, 255, 0.15)';
+            document.querySelector('.main-content').style.boxShadow = '0 10px 40px rgba(31, 38, 135, 0.08)';
+            
             if (signature) {
-                signature.style.color = '#666';
+                signature.style.color = '#666a88';
             }
         });
     </script>
