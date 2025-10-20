@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>唯美静态网页</title>
+    <title>醉歌个人静态网页</title>
     <style>
         * {
             margin: 0;
@@ -12,95 +12,164 @@
         }
         
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #e6d7ff 0%, #a8c0ff 100%);
             overflow: hidden;
             position: relative;
-            transition: background 1s ease;
+            transition: background 2s ease;
         }
         
-        /* 装饰性浮动元素 */
-        .floating-element {
+        /* GRIS风格背景元素 */
+        .gris-element {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            animation: float 15s infinite linear;
-            transition: background 1s ease;
+            filter: blur(30px);
+            opacity: 0.5;
+            animation: float 25s infinite ease-in-out;
+            mix-blend-mode: overlay;
         }
         
-        .floating-element:nth-child(1) {
-            width: 80px;
-            height: 80px;
+        .gris-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
             top: 10%;
-            left: 15%;
-            animation-duration: 25s;
+            left: 5%;
+            background: #ff9a9e;
+            animation-duration: 30s;
         }
         
-        .floating-element:nth-child(2) {
-            width: 120px;
-            height: 120px;
-            top: 70%;
-            right: 10%;
-            animation-duration: 20s;
+        .gris-element:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            top: 60%;
+            right: 5%;
+            background: #a8c0ff;
+            animation-duration: 35s;
             animation-direction: reverse;
         }
         
-        .floating-element:nth-child(3) {
-            width: 60px;
-            height: 60px;
-            bottom: 20%;
-            left: 20%;
-            animation-duration: 18s;
+        .gris-element:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            bottom: 10%;
+            left: 15%;
+            background: #fad0c4;
+            animation-duration: 28s;
+        }
+        
+        .gris-element:nth-child(4) {
+            width: 350px;
+            height: 350px;
+            top: 20%;
+            right: 20%;
+            background: #d4fc79;
+            animation-duration: 32s;
+            animation-delay: 2s;
+        }
+        
+        /* GRIS风格建筑剪影 */
+        .silhouette {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 100%);
+            clip-path: polygon(
+                0% 100%, 5% 80%, 10% 90%, 15% 70%, 20% 85%, 
+                25% 60%, 30% 75%, 35% 50%, 40% 70%, 45% 40%, 
+                50% 65%, 55% 35%, 60% 60%, 65% 30%, 70% 55%, 
+                75% 40%, 80% 60%, 85% 45%, 90% 70%, 95% 50%, 100% 100%
+            );
+            z-index: 5;
+        }
+        
+        /* 飘动的粒子 */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: particle-float 15s infinite linear;
         }
         
         @keyframes float {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate(40px, -20px) rotate(5deg) scale(1.1);
             }
             50% {
-                transform: translateY(-20px) rotate(180deg);
+                transform: translate(20px, -40px) rotate(0deg) scale(1.05);
+            }
+            75% {
+                transform: translate(-30px, -20px) rotate(-5deg) scale(1.1);
             }
             100% {
-                transform: translateY(0) rotate(360deg);
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+        }
+        
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
             }
         }
         
         .main-content {
             text-align: center;
             z-index: 10;
-            padding: 30px;
+            padding: 50px 70px;
             border-radius: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
-            animation: fadeIn 2s ease-out;
-            transition: all 1s ease;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 2.5s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 80%;
         }
         
         h1 {
             font-size: 4.5rem;
-            color: #333;
+            color: #3a3a52;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             font-weight: 300;
+            letter-spacing: 3px;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #5a5a7a;
+            margin-top: 15px;
+            font-style: italic;
             letter-spacing: 2px;
-            transition: color 1s ease, text-shadow 1s ease;
         }
         
         .signature {
             font-size: 1.2rem;
-            color: #666;
+            color: #666a88;
             font-style: italic;
-            margin-top: 20px;
+            margin-top: 30px;
             letter-spacing: 1px;
             position: relative;
             padding-top: 15px;
-            transition: color 1s ease;
         }
         
         .signature::before {
@@ -109,49 +178,43 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 50px;
+            width: 60px;
             height: 1px;
-            background: #aaa;
-            transition: background 1s ease;
+            background: #a0a7c4;
         }
         
-        /* 宝宝按钮样式 */
-        .baby-btn {
-            margin-top: 30px;
-            padding: 12px 30px;
-            background: #ff9bb3;
-            color: white;
-            border: none;
+        /* 按钮样式 */
+        .theme-btn {
+            margin-top: 40px;
+            padding: 14px 35px;
+            background: rgba(255, 255, 255, 0.25);
+            color: #5a4b5c;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 30px;
             font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 155, 179, 0.3);
-            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
             z-index: 10;
+            letter-spacing: 1px;
         }
         
-        .baby-btn:hover {
-            background: #ff7aa2;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 155, 179, 0.4);
+        .theme-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
         }
         
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
-        }
-        
-        /* 第二页样式 */
-        .second-page {
-            display: none;
-            text-align: center;
-            z-index: 10;
         }
         
         /* 响应式设计 */
@@ -161,8 +224,12 @@
             }
             
             .main-content {
-                padding: 20px;
+                padding: 30px;
                 margin: 0 20px;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
             }
         }
         
@@ -171,81 +238,133 @@
                 font-size: 2.5rem;
             }
             
-            .signature {
+            .signature, .subtitle {
                 font-size: 1rem;
             }
             
-            .baby-btn {
-                padding: 10px 20px;
+            .theme-btn {
+                padding: 12px 25px;
                 font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 装饰性浮动元素 -->
-    <div class="floating-element"></div>
-    <div class="floating-element"></div>
-    <div class="floating-element"></div>
+    <!-- GRIS风格背景元素 -->
+    <div class="gris-element"></div>
+    <div class="gris-element"></div>
+    <div class="gris-element"></div>
+    <div class="gris-element"></div>
     
-    <!-- 第一页内容 -->
-    <div class="first-page">
-        <div class="main-content">
-            <h1>Hello World</h1>
-            <div class="signature">—— zuige</div>
-        </div>
-        <!-- 粉色宝宝按钮 -->
-        <button class="baby-btn">宝宝</button>
+    <!-- 建筑剪影 -->
+    <div class="silhouette"></div>
+    
+    <!-- 主内容 -->
+    <div class="main-content">
+        <h1>GRIS 之境</h1>
+        <div class="subtitle">水彩般的梦幻世界</div>
+        <div class="signature">—— 灵感源自GRIS</div>
     </div>
     
-    <!-- 第二页内容 -->
-    <div class="second-page">
-        <div class="main-content">
-            <h1>小赖宝宝</h1>
-        </div>
-    </div>
+    <!-- 主题切换按钮 -->
+    <button class="theme-btn">切换主题</button>
 
     <script>
-        // 获取元素
-        const babyBtn = document.querySelector('.baby-btn');
-        const firstPage = document.querySelector('.first-page');
-        const secondPage = document.querySelector('.second-page');
-        const body = document.body;
-        const floatingElements = document.querySelectorAll('.floating-element');
-        const headings = document.querySelectorAll('h1');
-        const signature = document.querySelector('.signature');
-        
-        // 点击按钮切换页面
-        babyBtn.addEventListener('click', () => {
-            // 隐藏第一页，显示第二页
-            firstPage.style.display = 'none';
-            secondPage.style.display = 'block';
+        // 创建飘动的粒子
+        function createParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'particles-container';
+            document.body.appendChild(particlesContainer);
             
-            // 改变背景为紫色调渐变
-            body.style.background = 'linear-gradient(135deg, #f3e5f5 0%, #9c27b0 100%)';
-            
-            // 改变浮动元素颜色
-            floatingElements.forEach(el => {
-                el.style.background = 'rgba(255, 255, 255, 0.2)';
-            });
-            
-            // 改变文字样式
-            headings.forEach(h1 => {
-                h1.style.color = '#fff';
-                h1.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.2)';
-            });
-            
-            // 改变主内容区域样式
-            document.querySelector('.main-content').style.boxShadow = '0 8px 32px rgba(76, 17, 85, 0.2)';
-            
-            // 如果有签名线，改变其样式
-            if (signature) {
-                signature.style.color = '#f0e6f5';
-                const signatureLine = signature.querySelector('::before');
-                if (signatureLine) {
-                    signatureLine.style.background = '#d1c4e9';
-                }
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 随机大小
+                const size = Math.random() * 8 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 随机位置
+                particle.style.left = `${Math.random() * 100}vw`;
+                
+                // 随机延迟
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                // 随机颜色 - GRIS风格柔和色调
+                const colors = [
+                    'rgba(255, 154, 158, 0.7)',
+                    'rgba(168, 192, 255, 0.7)',
+                    'rgba(250, 208, 196, 0.7)',
+                    'rgba(212, 252, 121, 0.7)',
+                    'rgba(255, 255, 255, 0.7)'
+                ];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                particlesContainer.appendChild(particle);
             }
+        }
+        
+        // 主题切换功能
+        const themeBtn = document.querySelector('.theme-btn');
+        const body = document.body;
+        const grisElements = document.querySelectorAll('.gris-element');
+        const mainContent = document.querySelector('.main-content');
+        
+        let currentTheme = 0;
+        const themes = [
+            {
+                background: 'linear-gradient(135deg, #e6d7ff 0%, #a8c0ff 100%)',
+                colors: ['#ff9a9e', '#a8c0ff', '#fad0c4', '#d4fc79']
+            },
+            {
+                background: 'linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)',
+                colors: ['#a1c4fd', '#c2e9fb', '#ffd1ff', '#fad0c4']
+            },
+            {
+                background: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
+                colors: ['#d4fc79', '#96e6a1', '#fad0c4', '#a1c4fd']
+            },
+            {
+                background: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+                colors: ['#ff9a9e', '#fad0c4', '#a8c0ff', '#ffecd2']
+            }
+        ];
+        
+        themeBtn.addEventListener('click', () => {
+            currentTheme = (currentTheme + 1) % themes.length;
+            const theme = themes[currentTheme];
+            
+            // 切换背景
+            body.style.background = theme.background;
+            
+            // 切换GRIS元素颜色
+            grisElements.forEach((element, index) => {
+                element.style.background = theme.colors[index % theme.colors.length];
+            });
+            
+            // 添加内容区域动画
+            mainContent.style.animation = 'none';
+            setTimeout(() => {
+                mainContent.style.animation = 'fadeIn 1.5s ease-out';
+            }, 10);
+        });
+        
+        // 初始化粒子
+        createParticles();
+        
+        // 添加鼠标移动视差效果
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            grisElements.forEach((element, index) => {
+                const speed = (index + 1) * 0.5;
+                const xMove = (x - 0.5) * 20 * speed;
+                const yMove = (y - 0.5) * 20 * speed;
+                
+                element.style.transform = `translate(${xMove}px, ${yMove}px)`;
+            });
         });
     </script>
 </body>
