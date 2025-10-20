@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>醉歌个人静态网页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* 全局容器：确保所有内容垂直水平居中，不向上偏移 */
+        .page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 垂直居中，替代原body的center，避免整体上移 */
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg, #e6d7ff 0%, #a8c0ff 100%);
+            overflow: hidden;
+            transition: background 2s ease, opacity 0.8s ease;
+        }
+        
+        /* 隐藏页面 */
+        .page.hidden {
+            opacity: 0;
+            pointer-events: none; /* 隐藏后不响应点击 */
+        }
+        
+        /* GRIS风格背景元素 */
+        .gris-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(30px);
+            opacity: 0.5;
+            animation: float 25s infinite ease-in-out;
+            mix-blend-mode: overlay;
+        }
+        
+        .gris-element:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            background: #ff9a9e;
+            animation-duration: 30s;
+        }
+        
+        .gris-element:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            top: 60%;
+            right: 5%;
+            background: #a8c0ff;
+            animation-duration: 35s;
+            animation-direction: reverse;
+        }
+        
+        .gris-element:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            bottom: 10%;
+            left: 15%;
+            background: #fad0c4;
+            animation-duration: 28s;
+        }
+        
+        .gris-element:nth-child(4) {
+            width: 350px;
+            height: 350px;
+            top: 20%;
+            right: 20%;
+            background: #d4fc79;
+            animation-duration: 32s;
+            animation-delay: 2s;
+        }
+        
+        /* GRIS风格建筑剪影 */
+        .silhouette {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 100%);
+            clip-path: polygon(
+                0% 100%, 5% 80%, 10% 90%, 15% 70%, 20% 85%, 
+                25% 60%, 30% 75%, 35% 50%, 40% 70%, 45% 40%, 
+                50% 65%, 55% 35%, 60% 60%, 65% 30%, 70% 55%, 
+                75% 40%, 80% 60%, 85% 45%, 90% 70%, 95% 50%, 100% 100%
+            );
+            z-index: 5;
+        }
+        
+        /* 飘动的粒子 */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: particle-float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+            25% {
+                transform: translate(40px, -20px) rotate(5deg) scale(1.1);
+            }
+            50% {
+                transform: translate(20px, -40px) rotate(0deg) scale(1.05);
+            }
+            75% {
+                transform: translate(-30px, -20px) rotate(-5deg) scale(1.1);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+            }
+        }
+        
+        @keyframes particle-float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 主内容区：确保在屏幕中央，与按钮区保持合理间距 */
+        .main-content {
+            text-align: center;
+            z-index: 10;
+            padding: 50px 70px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 2.5s ease-out;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 80%;
+            margin-bottom: 40px; /* 与下方按钮区隔开，保证整体居中协调 */
+        }
+        
+        /* 第一页标题样式 */
+        .page1-title {
+            font-size: 4.5rem;
+            color: #3a3a52;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+        
+        /* 第二页标题样式 */
+        .page2-title {
+            font-size: 4.5rem;
+            color: #3a3a52;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+        
+        /* 签名样式 */
+        .signature {
+            font-size: 1.2rem;
+            color: #666a88;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+        
+        /* 按钮容器：核心布局，确保三个按钮（切换主题+宝宝+download）并列 */
+        .btn-container {
+            display: flex;
+            gap: 20px; /* 按钮之间间距 */
+            align-items: center;
+            z-index: 10;
+        }
+        
+        /* 主题切换按钮样式 */
+        .theme-btn {
+            padding: 14px 35px;
+            background: rgba(255, 255, 255, 0.25);
+            color: #5a4b5c;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+        }
+        
+        .theme-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 粉色"宝宝"按钮样式 */
+        .baby-btn {
+            padding: 14px 35px;
+            background: rgba(255, 182, 193, 0.4); /* 浅粉色半透明 */
+            color: #5a4b5c;
+            border: 1px solid rgba(255, 182, 193, 0.6);
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+        }
+        
+        .baby-btn:hover {
+            background: rgba(255, 182, 193, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 下载按钮样式（与其他按钮统一风格，确保并列协调） */
+        .download-btn {
+            padding: 14px 35px;
+            background: rgba(255, 255, 255, 0.25);
+            color: #5a4b5c;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+            text-decoration: none; /* 清除链接默认下划线 */
+        }
+        
+        .download-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 第二页返回按钮样式 */
+        .back-btn {
+            padding: 14px 35px;
+            background: rgba(255, 255, 255, 0.25);
+            color: #5a4b5c;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            z-index: 10;
+            letter-spacing: 1px;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        /* 响应式设计：小屏幕按钮自动换行，避免溢出 */
+        @media (max-width: 992px) {
+            .btn-container {
+                gap: 15px;
+                flex-wrap: wrap; /* 屏幕变窄时按钮换行 */
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page1-title, .page2-title {
+                font-size: 3rem;
+            }
+            
+            .main-content {
+                padding: 30px;
+                margin: 0 20px 30px; /* 调整间距适配小屏幕 */
+            }
+            
+            .signature {
+                font-size: 1rem;
+            }
+            
+            .theme-btn, .baby-btn, .download-btn, .back-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page1-title, .page2-title {
+                font-size: 2.5rem;
+            }
+            
+            .signature {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 第一页：包含主内容+三个并列按钮（切换主题+宝宝+download） -->
+    <div class="page" id="page1">
+        <!-- GRIS风格背景元素 -->
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        
+        <!-- 建筑剪影 -->
+        <div class="silhouette"></div>
+        
+        <!-- 主内容（居中显示） -->
+        <div class="main-content">
+            <h1 class="page1-title">hello，world!</h1>
+            <div class="signature">——zuige</div>
+        </div>
+        
+        <!-- 核心按钮区：三个按钮并列 -->
+        <div class="btn-container">
+            <button class="theme-btn">切换主题</button>
+            <button class="baby-btn" id="babyBtn">宝宝</button>
+            <a href="D:\develop\web\code.txt" class="download-btn" download="code.txt">download</a>
+        </div>
+    </div>
+    
+    <!-- 第二页：仅显示标题+返回按钮 -->
+    <div class="page hidden" id="page2">
+        <!-- GRIS风格背景元素 -->
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        
+        <!-- 建筑剪影 -->
+        <div class="silhouette"></div>
+        
+        <!-- 主内容（居中显示） -->
+        <div class="main-content">
+            <h1 class="page2-title">小赖宝宝</h1>
+        </div>
+        
+        <!-- 返回按钮（居中显示） -->
+        <button class="back-btn" id="backBtn">返回</button>
+    </div>
+
+    <script>
+        // 创建飘动的粒子
+        function createParticles() {
+            // 为两个页面分别创建粒子，确保切换后粒子效果连贯
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                const particlesContainer = document.createElement('div');
+                particlesContainer.className = 'particles-container';
+                page.appendChild(particlesContainer);
+                
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    
+                    // 随机大小
+                    const size = Math.random() * 8 + 2;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    
+                    // 随机位置
+                    particle.style.left = `${Math.random() * 100}vw`;
+                    
+                    // 随机延迟
+                    particle.style.animationDelay = `${Math.random() * 15}s`;
+                    
+                    // 随机颜色 - GRIS风格柔和色调
+                    const colors = [
+                        'rgba(255, 154, 158, 0.7)',
+                        'rgba(168, 192, 255, 0.7)',
+                        'rgba(250, 208, 196, 0.7)',
+                        'rgba(212, 252, 121, 0.7)',
+                        'rgba(255, 255, 255, 0.7)'
+                    ];
+                    particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    particlesContainer.appendChild(particle);
+                }
+            });
+        }
+        
+        // 主题切换功能（仅作用于第一页）
+        const themeBtn = document.querySelector('.theme-btn');
+        const page1 = document.querySelector('#page1');
+        const page1Gris = page1.querySelectorAll('.gris-element'); // 第一页背景元素
+        const page1Content = page1.querySelector('.main-content');
+        
+        let currentTheme = 0;
+        const themes = [
+            {
+                background: 'linear-gradient(135deg, #e6d7ff 0%, #a8c0ff 100%)',
+                colors: ['#ff9a9e', '#a8c0ff', '#fad0c4', '#d4fc79']
+            },
+            {
+                background: 'linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%)',
+                colors: ['#a1c4fd', '#c2e9fb', '#ffd1ff', '#fad0c4']
+            },
+            {
+                background: 'linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)',
+                colors: ['#d4fc79', '#96e6a1', '#fad0c4', '#a1c4fd']
+            },
+            {
+                background: 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+                colors: ['#ff9a9e', '#fad0c4', '#a8c0ff', '#ffecd2']
+            }
+        ];
+        
+        // 主题切换事件
+        themeBtn.addEventListener('click', () => {
+            currentTheme = (currentTheme + 1) % themes.length;
+            const theme = themes[currentTheme];
+            
+            // 切换第一页背景
+            page1.style.background = theme.background;
+            
+            // 切换第一页背景元素颜色
+            page1Gris.forEach((element, index) => {
+                element.style.background = theme.colors[index % theme.colors.length];
+            });
+            
+            // 主内容区动画效果
+            page1Content.style.animation = 'none';
+            setTimeout(() => {
+                page1Content.style.animation = 'fadeIn 1.5s ease-out';
+            }, 10);
+        });
+        
+        // 页面切换逻辑（第一页→第二页，第二页→第一页）
+        const babyBtn = document.querySelector('#babyBtn');
+        const backBtn = document.querySelector('#backBtn');
+        const page2 = document.querySelector('#page2');
+        const page2Gris = page2.querySelectorAll('.gris-element'); // 第二页背景元素
+        
+        // 点击"宝宝"进入第二页
+        babyBtn.addEventListener('click', () => {
+            page1.classList.add('hidden');
+            page2.classList.remove('hidden');
+            
+            // 第二页继承第一页当前主题，保持视觉统一
+            page2.style.background = page1.style.background;
+            page2Gris.forEach((element, index) => {
+                element.style.background = themes[currentTheme].colors[index % themes[currentTheme].colors.length];
+            });
+        });
+        
+        // 点击"返回"回到第一页
+        backBtn.addEventListener('click', () => {
+            page2.classList.add('hidden');
+            page1.classList.remove('hidden');
+        });
+        
+        // 鼠标移动视差效果（作用于两个页面的背景元素）
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            // 遍历所有背景元素，添加视差移动
+            const allGris = document.querySelectorAll('.gris-element');
+            allGris.forEach((element, index) => {
+                const speed = (index % 4 + 1) * 0.5; // 每个页面内元素速度一致
+                const xMove = (x - 0.5) * 20 * speed;
+                const yMove = (y - 0.5) * 20 * speed;
+                
+                element.style.transform = `translate(${xMove}px, ${yMove}px)`;
+            });
+        });
+        
+        // 初始化：创建粒子+设置第一页默认主题
+        createParticles();
+        page1.style.background = themes[0].background;
+        page1Gris.forEach((element, index) => {
+            element.style.background = themes[0].colors[index % themes[0].colors.length];
+        });
+    </script>
+</body>
+</html>
