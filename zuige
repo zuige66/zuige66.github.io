@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>醉歌个人静态网页</title>
+    <title>醉歌静态网页</title>
     <style>
         * {
             margin: 0;
@@ -350,7 +350,7 @@
         <div class="btn-container">
             <button class="theme-btn">切换主题</button>
             <button class="baby-btn" id="babyBtn">宝宝</button>
-            <a href="D:\develop\web\code.txt" class="download-btn" download="code.txt">download</a>
+            <a href="code.txt" class="download-btn" download="code.txt">download</a>
         </div>
     </div>
     
