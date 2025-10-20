@@ -145,7 +145,18 @@
             max-width: 80%;
         }
         
-        h1 {
+        /* 第一页标题样式 */
+        .page1-title {
+            font-size: 4.5rem;
+            color: #3a3a52;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+        
+        /* 第二页标题样式 */
+        .page2-title {
             font-size: 4.5rem;
             color: #3a3a52;
             margin-bottom: 20px;
@@ -154,38 +165,24 @@
             letter-spacing: 3px;
         }
         
-        .subtitle {
-            font-size: 1.5rem;
-            color: #5a5a7a;
-            margin-top: 15px;
-            font-style: italic;
-            letter-spacing: 2px;
-        }
-        
+        /* 签名样式 */
         .signature {
             font-size: 1.2rem;
             color: #666a88;
             font-style: italic;
-            margin-top: 30px;
             letter-spacing: 1px;
-            position: relative;
-            padding-top: 15px;
         }
         
-        .signature::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 1px;
-            background: #a0a7c4;
-        }
-        
-        /* 按钮样式 */
-        .theme-btn {
+        /* 按钮容器（用于并排按钮） */
+        .btn-container {
             margin-top: 40px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        /* 主题切换按钮样式 */
+        .theme-btn {
             padding: 14px 35px;
             background: rgba(255, 255, 255, 0.25);
             color: #5a4b5c;
@@ -206,6 +203,51 @@
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
         }
         
+        /* 粉色"宝宝"按钮样式 */
+        .baby-btn {
+            padding: 14px 35px;
+            background: rgba(255, 182, 193, 0.4); /* 浅粉色半透明 */
+            color: #5a4b5c;
+            border: 1px solid rgba(255, 182, 193, 0.6);
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            z-index: 10;
+            letter-spacing: 1px;
+        }
+        
+        .baby-btn:hover {
+            background: rgba(255, 182, 193, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 下载按钮样式 */
+        .download-btn {
+            padding: 14px 35px;
+            background: rgba(255, 255, 255, 0.25);
+            color: #5a4b5c;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            z-index: 10;
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        
+        .download-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -217,9 +259,28 @@
             }
         }
         
+        /* 页面容器（控制页面显示隐藏） */
+        .page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: opacity 0.8s ease;
+        }
+        
+        /* 隐藏页面 */
+        .page.hidden {
+            opacity: 0;
+            pointer-events: none; /* 隐藏后不响应点击 */
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
-            h1 {
+            .page1-title, .page2-title {
                 font-size: 3rem;
             }
             
@@ -228,46 +289,77 @@
                 margin: 0 20px;
             }
             
-            .subtitle {
-                font-size: 1.2rem;
+            .signature {
+                font-size: 1rem;
+            }
+            
+            .theme-btn, .baby-btn, .download-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .btn-container {
+                gap: 15px;
+                flex-wrap: wrap; /* 小屏幕自动换行 */
+                justify-content: center;
             }
         }
         
         @media (max-width: 480px) {
-            h1 {
+            .page1-title, .page2-title {
                 font-size: 2.5rem;
             }
             
-            .signature, .subtitle {
-                font-size: 1rem;
-            }
-            
-            .theme-btn {
-                padding: 12px 25px;
-                font-size: 1rem;
+            .signature {
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- GRIS风格背景元素 -->
-    <div class="gris-element"></div>
-    <div class="gris-element"></div>
-    <div class="gris-element"></div>
-    <div class="gris-element"></div>
-    
-    <!-- 建筑剪影 -->
-    <div class="silhouette"></div>
-    
-    <!-- 主内容 -->
-    <div class="main-content">
-        <h1>GRIS 之境</h1>
-        <div class="subtitle">水彩般的梦幻世界</div>
-        <div class="signature">—— 灵感源自GRIS</div>
+    <!-- 第一页 -->
+    <div class="page" id="page1">
+        <!-- GRIS风格背景元素 -->
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        
+        <!-- 建筑剪影 -->
+        <div class="silhouette"></div>
+        
+        <!-- 主内容 -->
+        <div class="main-content">
+            <h1 class="page1-title">hello，world!</h1>
+            <div class="signature">——zuige</div>
+        </div>
+        
+        <!-- 按钮容器（主题切换+宝宝按钮） -->
+        <div class="btn-container">
+            <button class="theme-btn">切换主题</button>
+            <button class="baby-btn" id="babyBtn">宝宝</button>
+        </div>
     </div>
     
-    <!-- 主题切换按钮 -->
-    <button class="theme-btn">切换主题</button>
+    <!-- 第二页 -->
+    <div class="page hidden" id="page2">
+        <!-- GRIS风格背景元素 -->
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        <div class="gris-element"></div>
+        
+        <!-- 建筑剪影 -->
+        <div class="silhouette"></div>
+        
+        <!-- 主内容 -->
+        <div class="main-content">
+            <h1 class="page2-title">小赖宝宝</h1>
+        </div>
+        
+        <!-- 下载按钮 -->
+        <a href="D:\develop\web\code.txt" class="download-btn" download="code.txt">download</a>
+    </div>
 
     <script>
         // 创建飘动的粒子
@@ -308,8 +400,9 @@
         // 主题切换功能
         const themeBtn = document.querySelector('.theme-btn');
         const body = document.body;
+        // 获取所有页面的背景元素（两个页面各4个）
         const grisElements = document.querySelectorAll('.gris-element');
-        const mainContent = document.querySelector('.main-content');
+        const page1Content = document.querySelector('#page1 .main-content');
         
         let currentTheme = 0;
         const themes = [
@@ -331,41 +424,59 @@
             }
         ];
         
+        // 主题切换事件（只作用于第一页）
         themeBtn.addEventListener('click', () => {
             currentTheme = (currentTheme + 1) % themes.length;
             const theme = themes[currentTheme];
             
-            // 切换背景
-            body.style.background = theme.background;
+            // 切换第一页背景
+            document.querySelector('#page1').style.background = theme.background;
             
-            // 切换GRIS元素颜色
-            grisElements.forEach((element, index) => {
-                element.style.background = theme.colors[index % theme.colors.length];
-            });
+            // 切换第一页GRIS元素颜色（前4个是第一页的）
+            for (let i = 0; i < 4; i++) {
+                grisElements[i].style.background = theme.colors[i % theme.colors.length];
+            }
             
-            // 添加内容区域动画
-            mainContent.style.animation = 'none';
+            // 第一页内容区域动画
+            page1Content.style.animation = 'none';
             setTimeout(() => {
-                mainContent.style.animation = 'fadeIn 1.5s ease-out';
+                page1Content.style.animation = 'fadeIn 1.5s ease-out';
             }, 10);
         });
         
-        // 初始化粒子
-        createParticles();
+        // 页面切换功能（宝宝按钮点击跳转第二页）
+        const babyBtn = document.querySelector('#babyBtn');
+        const page1 = document.querySelector('#page1');
+        const page2 = document.querySelector('#page2');
         
-        // 添加鼠标移动视差效果
+        babyBtn.addEventListener('click', () => {
+            page1.classList.add('hidden');
+            page2.classList.remove('hidden');
+            // 第二页背景默认使用第一页当前主题
+            page2.style.background = document.querySelector('#page1').style.background;
+            // 第二页GRIS元素颜色（后4个是第二页的）
+            for (let i = 4; i < 8; i++) {
+                grisElements[i].style.background = themes[currentTheme].colors[(i-4) % themes[currentTheme].colors.length];
+            }
+        });
+        
+        // 鼠标移动视差效果（作用于所有页面的背景元素）
         document.addEventListener('mousemove', (e) => {
             const x = e.clientX / window.innerWidth;
             const y = e.clientY / window.innerHeight;
             
             grisElements.forEach((element, index) => {
-                const speed = (index + 1) * 0.5;
+                const speed = (index % 4 + 1) * 0.5; // 每个页面内的元素速度一致
                 const xMove = (x - 0.5) * 20 * speed;
                 const yMove = (y - 0.5) * 20 * speed;
                 
                 element.style.transform = `translate(${xMove}px, ${yMove}px)`;
             });
         });
+        
+        // 初始化粒子和第一页背景
+        createParticles();
+        page1.style.background = themes[0].background;
     </script>
 </body>
 </html>
