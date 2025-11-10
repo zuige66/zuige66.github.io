@@ -155,7 +155,7 @@
     color: #3a3a52;
     margin-bottom: 15px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    font-weight: 300;
+    font-weight: 600;
     letter-spacing: 3px;
 }
 
@@ -369,4 +369,39 @@
     .social-link i {
         font-size: 1.9rem !important; /* 缩小小屏幕下的图标尺寸 */
     }
+}
+
+/* --- 打字机效果光标样式 --- */
+.cursor {
+    /* 确保光标的颜色和标题颜色一致 */
+    color: #3a3a52; 
+    
+    /* 保证光标在同一行内 */
+    display: inline-block; 
+    
+    /* 闪烁动画 */
+    animation: blink 0.7s infinite;
+    
+    
+    font-weight: 700; /* 可选：调整光标粗细 */
+    font-size: 2.6rem; /* 可选：调整光标大小 */
+    vertical-align: 7%; /* 尝试向上移动 10% */
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* 隐藏初始文本，让 JS 控制显示 */
+#typewriter-text {
+    /* 确保文本能与光标对齐 */
+    display: inline-block; 
 }

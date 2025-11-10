@@ -129,3 +129,33 @@ page1.style.background = themes[0].background;
 page1Gris.forEach((element, index) => {
     element.style.background = themes[0].colors[index % themes[0].colors.length];
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 目标文本
+    const textToType = "hello,world!"; 
+    
+    // 目标元素
+    const targetElement = document.getElementById('typewriter-text');
+    
+    // 打字速度 (毫秒)
+    const typingSpeed = 150; 
+    
+    let charIndex = 0;
+
+    function typeWriter() {
+        if (charIndex < textToType.length) {
+            // 逐个添加字母
+            targetElement.textContent += textToType.charAt(charIndex);
+            charIndex++;
+            
+            // 使用 setTimeout 递归调用，控制速度
+            setTimeout(typeWriter, typingSpeed);
+        } 
+    }
+
+    // 仅在 page1 显示时才开始动画 (可选优化)
+    const page1 = document.getElementById('page1');
+    if (page1 && !page1.classList.contains('hidden')) {
+        typeWriter();
+    }
+});
