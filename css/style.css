@@ -329,12 +329,12 @@
     z-index: 15; /* 确保它在所有背景元素和粒子之上 */
     
     /* 风格化 */
-    padding: 8px 8px;
+    width: 37px;    /* 设置容器宽度 */
+    height: 37px;
     background: rgba(255, 255, 255, 0.2);
     color: #3a3a52; /* 深色文字 */
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%; /* 圆形 */
-    font-size: 1.5rem;
+    border-radius: 30%; /* 圆形的圆 */
     cursor: pointer;
     backdrop-filter: blur(5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -345,9 +345,16 @@
     justify-content: center;
 }
 
+/* 专门针对图标进行放大 */
+.social-link i {
+    /* 重点新增：放大图标本身。您可以调整 2.0rem 直到满意为止 */
+    font-size: 1.9rem !important; 
+    transition: none; /* 确保图标大小不会被容器的 transform: scale(1.1) 影响 */
+}
+
 .social-link:hover {
     background: rgba(255, 255, 255, 0.4);
-    transform: scale(1.05); /* 鼠标悬停时略微放大 */
+    transform: scale(1.1); /* 鼠标悬停时略微放大 */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -356,7 +363,10 @@
     .social-link {
         top: 20px;
         right: 20px;
-        font-size: 1.6rem;
-        padding: 6px 6px;
+        width: 37px;    /* 设置容器宽度 */
+        height: 37px;
+    }
+    .social-link i {
+        font-size: 1.9rem !important; /* 缩小小屏幕下的图标尺寸 */
     }
 }
