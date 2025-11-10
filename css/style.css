@@ -290,10 +290,21 @@
     }
 }
 
+/* 屏幕宽度小于 768px 的样式 */
 @media (max-width: 768px) {
     .page1-title, .page2-title {
         font-size: 3rem;
     }
+    
+    /* === 响应式光标调整 (768px) === */
+    .cursor {
+        /* 比例调整：光标 (3.8rem) / 标题 (4.5rem) ≈ 0.84。 
+           这里：3rem * 0.84 ≈ 2.5rem */
+        font-size: 2.5rem  !important; 
+        /* 重新微调对齐 */
+        vertical-align: 4%; 
+    }
+
 
     .main-content {
         padding: 30px;
@@ -308,12 +319,32 @@
         padding: 12px 25px;
         font-size: 1rem;
     }
+    
+    .social-link {
+        top: 20px;
+        right: 20px;
+        width: 37px; 	/* 设置容器宽度 */
+        height: 37px;
+    }
+    .social-link i {
+        font-size: 1.5rem !important; /* 进一步缩小小屏幕下的图标尺寸 */
+    }
 }
 
+/* 屏幕宽度小于 480px 的样式 */
 @media (max-width: 480px) {
     .page1-title, .page2-title {
         font-size: 2.5rem;
     }
+
+    /* === 响应式光标调整 (480px) - 使用 !important 强制生效 === */
+    .cursor {
+        /* 使用 !important 保证 2.1rem 绝对覆盖任何内联或高优先级样式 */
+        font-size: 2.1rem !important; 
+        /* vertical-align 应该不会被覆盖，但为了保险可以也加上 */
+        vertical-align: 3% !important; 
+    }
+    /* ======================================================== */
 
     .signature {
         font-size: 0.9rem;
@@ -329,12 +360,12 @@
     z-index: 15; /* 确保它在所有背景元素和粒子之上 */
     
     /* 风格化 */
-    width: 37px;    /* 设置容器宽度 */
+    width: 37px; 	/* 设置容器宽度 */
     height: 37px;
     background: rgba(255, 255, 255, 0.2);
     color: #3a3a52; /* 深色文字 */
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 30%; /* 圆形的圆 */
+    border-radius: 30%; /* 修正：确保是完美圆形 */
     cursor: pointer;
     backdrop-filter: blur(5px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -347,7 +378,6 @@
 
 /* 专门针对图标进行放大 */
 .social-link i {
-    /* 重点新增：放大图标本身。您可以调整 2.0rem 直到满意为止 */
     font-size: 1.9rem !important; 
     transition: none; /* 确保图标大小不会被容器的 transform: scale(1.1) 影响 */
 }
@@ -358,20 +388,7 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* 响应式调整（确保在小屏幕上不被覆盖或溢出） */
-@media (max-width: 768px) {
-    .social-link {
-        top: 20px;
-        right: 20px;
-        width: 37px;    /* 设置容器宽度 */
-        height: 37px;
-    }
-    .social-link i {
-        font-size: 1.9rem !important; /* 缩小小屏幕下的图标尺寸 */
-    }
-}
-
-/* --- 打字机效果光标样式 --- */
+/* --- 打字机效果光标样式 (大屏幕默认) --- */
 .cursor {
     /* 确保光标的颜色和标题颜色一致 */
     color: #3a3a52; 
@@ -382,10 +399,11 @@
     /* 闪烁动画 */
     animation: blink 0.7s infinite;
     
+    font-weight: 700; /* 调整光标粗细 */
     
-    font-weight: 700; /* 可选：调整光标粗细 */
-    font-size: 2.6rem; /* 可选：调整光标大小 */
-    vertical-align: 7%; /* 尝试向上移动 10% */
+    /* 核心修改：增大 font-size 到 3.8rem 以匹配 4.5rem 的标题 */
+    font-size: 3.8rem; 
+    vertical-align: 14%; /* 重新微调对齐，略微向上移动 */
 }
 
 @keyframes blink {
